@@ -1,0 +1,60 @@
+2019-08-15 16:27:50,897 root         WARNING : [x86_64-vm] - detecting new process. [224] sshd (struct addr:0xffff8800071c4d00L)
+2019-08-15 16:27:50,897 root         WARNING : [x86_64-vm] - detecting new process. [226] sh (struct addr:0xffff880006176e00L)
+2019-08-15 16:28:01,621 root         WARNING : [x86_64-vm] - detecting new process. [224] sshd (struct addr:0xffff8800071c4d00L)
+2019-08-15 16:28:01,621 root         WARNING : [x86_64-vm] - detecting new process. [226] sh (struct addr:0xffff880006176e00L)
+2019-08-15 16:36:49,562 root         WARNING : [x86_64-vm] - detected new process. [229] sshd (struct addr:0xffff880006176e00L)
+2019-08-15 16:36:49,562 root         WARNING : [x86_64-vm] - detected new process. [231] sh (struct addr:0xffff880006172c00L)
+2019-08-15 16:38:16,595 root         WARNING : [x86_64-vm] - detected new process. [233] sshd (struct addr:0xffff8800071c4d00L)
+2019-08-15 16:38:16,595 root         WARNING : [x86_64-vm] - detected new process. [235] sh (struct addr:0xffff880006176e00L)
+2019-08-15 16:38:48,957 root         WARNING : [x86_64-vm] - detected process leave. [233] sshd (struct addr:0xffff8800071c4d00L)
+2019-08-15 16:38:48,957 root         WARNING : [x86_64-vm] - detected process leave. [235] sh (struct addr:0xffff880006176e00L)
+2019-08-15 16:50:48,401 x86_64-vm    WARNING : [x86_64-vm] - detected new process. [241] sh (struct addr:0xffff880006172c00L)
+2019-08-15 16:50:48,401 x86_64-vm    WARNING : [x86_64-vm] - detected new process. [239] sshd (struct addr:0xffff880006176e00L)
+2019-08-15 16:51:31,460 x86_64-vm    WARNING : [x86_64-vm] - detected process leave. [241] sh (struct addr:0xffff880006172c00L)
+2019-08-15 16:51:31,461 x86_64-vm    WARNING : [x86_64-vm] - detected process leave. [239] sshd (struct addr:0xffff880006176e00L)
+2019-08-15 16:53:49,684 x86_64-vm    WARNING : detected new process. [243] sshd (struct addr:0xffff8800071c4d00L)
+2019-08-15 16:53:49,685 x86_64-vm    WARNING : detected new process. [244] sshd (struct addr:0xffff880006176e00L)
+2019-08-15 16:54:00,529 x86_64-vm    WARNING : detected new process. [245] sh (struct addr:0xffff880006176e00L)
+2019-08-15 16:54:00,530 x86_64-vm    WARNING : detected process leave. [244] sshd (struct addr:0xffff880006176e00L)
+2019-08-15 16:54:32,798 x86_64-vm    WARNING : detected process leave. [243] sshd (struct addr:0xffff8800071c4d00L)
+2019-08-15 16:54:32,798 x86_64-vm    WARNING : detected process leave. [245] sh (struct addr:0xffff880006176e00L)
+2019-08-15 17:02:43,616 x86_64-vm    WARNING : detected new process. [249] sshd (struct addr:0xffff880006176e00L)
+2019-08-15 17:02:43,616 x86_64-vm    WARNING : detected new process. [250] sshd (struct addr:0xffff880006172c00L)
+2019-08-15 17:03:05,297 x86_64-vm    WARNING : detected new process. [251] sh (struct addr:0xffff880006172c00L)
+2019-08-15 17:03:05,298 x86_64-vm    WARNING : detected process leave. [250] sshd (struct addr:0xffff880006172c00L)
+2019-08-15 17:03:48,455 x86_64-vm    WARNING : detected process leave. [249] sshd (struct addr:0xffff880006176e00L)
+2019-08-15 17:03:48,456 x86_64-vm    WARNING : detected process leave. [251] sh (struct addr:0xffff880006172c00L)
+2019-08-16 11:05:27,585 root         ERROR   : Run command failed! (code:-9) (erro:None) (output:PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=52 time=6.23 ms
+
+--- 8.8.8.8 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 6.231/6.231/6.231/0.000 ms
+) 
+2019-08-16 11:07:05,773 root         ERROR   : Run command failed! (code:-9, erro:None)
+ (input: ping -c 1 8.8.8.8; sleep 6)
+(output: PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=52 time=9.69 ms
+
+--- 8.8.8.8 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 9.690/9.690/9.690/0.000 ms
+) 
+2019-08-16 11:08:33,146 root         ERROR   : Run command failed! (code:-9, erro:None)
+[ping -c 1 8.8.8.8; sleep 6]
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=52 time=6.74 ms
+
+--- 8.8.8.8 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 6.740/6.740/6.740/0.000 ms
+
+2019-08-16 11:09:21,949 root         ERROR   : Run command failed! (code:-9, erro:None)
+cmd: [ping -c 1 8.8.8.8; sleep 6]
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=52 time=4.09 ms
+
+--- 8.8.8.8 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 4.093/4.093/4.093/0.000 ms
+

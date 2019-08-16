@@ -1,0 +1,35 @@
+version: 1
+disable_existing_loggers: False
+formatters:
+  default:
+    format: '%(asctime)s %(name)-12s %(levelname)-8s: %(message)s'
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: default
+    stream: ext://sys.stdout
+  error_file_handler:
+    class: logging.handlers.RotatingFileHandler
+    level: ERROR
+    formatter: default
+    filename: log/errors.log
+    maxBytes: 10485760
+    backupCount: 20
+    encoding: utf8
+  warning_file_handler:
+    class: logging.handlers.RotatingFileHandler
+    level: WARNING
+    formatter: default
+    filename: log/warnings.log
+    maxBytes: 524288000 # 500M size
+    backupCount: 20
+    encoding: utf8
+#loggers:
+#    my_module:
+#            level: WARNING
+#            handlers: [warning_file_handler]
+#            propagate: no
+root:
+  level: INFO
+  handlers: [console,warning_file_handler,error_file_handler]
