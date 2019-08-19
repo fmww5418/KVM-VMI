@@ -32,3 +32,275 @@ PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
 1 packets transmitted, 1 received, 0% packet loss, time 0ms
 rtt min/avg/max/mdev = 4.093/4.093/4.093/0.000 ms
 
+2019-08-16 14:20:13,215 my.logger    ERROR   : An ERROR message
+2019-08-16 14:20:13,215 my.logger    CRITICAL: A CRITICAL message
+2019-08-16 14:37:39,415 my.logger    ERROR   : An ERROR message
+2019-08-16 14:37:39,415 my.logger    CRITICAL: A CRITICAL message
+2019-08-16 14:38:07,495 my.logger    ERROR   : An ERROR message
+2019-08-16 14:38:07,495 my.logger    CRITICAL: A CRITICAL message
+2019-08-16 14:38:44,986 debug.logger ERROR   : An ERROR message
+2019-08-16 14:38:44,986 debug.logger CRITICAL: A CRITICAL message
+2019-08-16 14:39:00,538 debug.logger ERROR   : An ERROR message
+2019-08-16 14:39:00,539 debug.logger CRITICAL: A CRITICAL message
+2019-08-16 14:39:49,525 debug.logger ERROR   : An ERROR message
+2019-08-16 14:39:49,525 debug.logger CRITICAL: A CRITICAL message
+2019-08-16 14:45:20,050 root         ERROR   : An ERROR message
+2019-08-16 14:45:20,050 root         CRITICAL: A CRITICAL message
+2019-08-16 14:45:29,332 root         ERROR   : An ERROR message
+2019-08-16 14:45:29,332 root         CRITICAL: A CRITICAL message
+2019-08-16 14:46:06,636 root         ERROR   : An ERROR message
+2019-08-16 14:46:06,636 root         CRITICAL: A CRITICAL message
+2019-08-16 14:46:24,063 root         ERROR   : An ERROR message
+2019-08-16 14:46:24,063 root         CRITICAL: A CRITICAL message
+2019-08-16 14:46:37,263 root         ERROR   : An ERROR message
+2019-08-16 14:46:37,263 root         CRITICAL: A CRITICAL message
+2019-08-16 14:46:47,281 root         ERROR   : An ERROR message
+2019-08-16 14:46:47,281 root         CRITICAL: A CRITICAL message
+2019-08-16 14:47:29,275 root         ERROR   : An ERROR message
+2019-08-16 14:47:29,276 root         CRITICAL: A CRITICAL message
+2019-08-16 16:32:14,771 root         ERROR   : Run command failed! (code:1, erro:None)
+cmd: [cp image/x86_64/src_disk_name image/x86_64/vm2]
+
+2019-08-16 16:34:05,442 root         ERROR   : Run command failed! (code:1, erro:None)
+cmd: [cp image/x86_64/rootfs.ext2 image/x86_64/vm2]
+
+2019-08-16 16:56:20,905 root         ERROR   : Run command failed! (code:1, erro:None)
+cmd: [virt-install --name vm2 --ram 128 --arch x86_64 --disk /home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2,bus=virtio,format=raw --boot kernel=/home/nicter/Desktop/vmi_project/image/x86_64/bzImage,kernel_args="root=/dev/vda" --network network=default --hvm]
+
+Starting install...
+
+2019-08-16 17:03:27,646 root         ERROR   : Run command failed! (code:1, erro:None)
+cmd: [cp /home/nicter/Desktop/vmi_project/image/x86_64/rootfs.ext2 /home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2]
+
+2019-08-16 17:03:28,092 root         ERROR   : Run command failed! (code:1, erro:None)
+cmd: [virt-install --connect qemu:///system --name vm2 --ram 128 --arch x86_64 --disk /home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2,bus=virtio,format=raw --boot kernel=/home/nicter/Desktop/vmi_project/image/x86_64/bzImage,kernel_args="root=/dev/vda" --network network=default --hvm]
+
+2019-08-16 17:22:50,854 root         ERROR   : vm [vm2] already exist.
+2019-08-16 17:23:14,309 root         ERROR   : vm [vm2] already exist.
+2019-08-16 17:24:53,666 manager      ERROR   : VM [vm2] already exist.
+2019-08-16 17:43:06,026 root         ERROR   : Run command failed! (code:-9, erro:None)
+cmd: [virt-install --connect qemu:///system --name vm2 --ram 128 --arch x86_64 --disk /home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2,bus=virtio,format=raw --boot kernel=/home/nicter/Desktop/vmi_project/image/x86_64/bzImage,kernel_args="root=/dev/vda" --network network=default --hvm]
+
+Starting install...
+Domain installation still in progress. Waiting for installation to complete.
+Domain has shutdown. Continuing.
+Domain creation completed.
+You can restart your domain by running:
+  virsh --connect qemu:///system start vm2
+
+2019-08-16 17:45:15,856 root         ERROR   : Run command failed! (code:1, erro:None)
+cmd: [cp /home/nicter/Desktop/vmi_project/image/x86_64/rootfs.ext2 /home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2]
+
+2019-08-16 17:46:41,274 root         ERROR   : Run command failed! (code:-9, erro:None)
+cmd: [ping -c 1 8.8.8.8; sleep 6]
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=52 time=6.55 ms
+
+--- 8.8.8.8 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 6.559/6.559/6.559/0.000 ms
+
+2019-08-16 17:46:50,414 manager      ERROR   : VM [vm2] already exist.
+2019-08-16 17:48:48,857 root         ERROR   : Run command failed! (code:-9, erro:None)
+cmd: [virt-install --connect qemu:///system --name vm2 --ram 128 --arch x86_64 --disk /home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2,bus=virtio,format=raw --boot kernel=/home/nicter/Desktop/vmi_project/image/x86_64/bzImage,kernel_args="root=/dev/vda" --network network=default --hvm]
+
+Starting install...
+Domain installation still in progress. Waiting for installation to complete.
+Domain has shutdown. Continuing.
+Domain creation completed.
+You can restart your domain by running:
+  virsh --connect qemu:///system start vm2
+
+2019-08-16 17:52:24,770 root         ERROR   : Run command failed! (code:-9, erro:None)
+cmd: [ping -c 1 8.8.8.8; sleep 6]
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=52 time=5.75 ms
+
+--- 8.8.8.8 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 5.752/5.752/5.752/0.000 ms
+
+2019-08-16 17:52:44,567 root         ERROR   : Run command failed! (code:-9, erro:None)
+cmd: [ping -c 1 8.8.8.8; sleep 6]
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=52 time=4.37 ms
+
+--- 8.8.8.8 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 4.379/4.379/4.379/0.000 ms
+
+2019-08-16 17:55:15,089 manager      ERROR   : VM [vm2] already exist.
+2019-08-16 17:55:22,935 root         ERROR   : Run command failed! (code:-9, erro:None)
+cmd: [virt-install --connect qemu:///system --name vm2 --ram 128 --arch x86_64 --disk /home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2,bus=virtio,format=raw --boot kernel=/home/nicter/Desktop/vmi_project/image/x86_64/bzImage,kernel_args="root=/dev/vda" --network network=default --hvm]
+
+Starting install...
+Domain installation still in progress. Waiting for installation to complete.
+Domain has shutdown. Continuing.
+Domain creation completed.
+You can restart your domain by running:
+  virsh --connect qemu:///system start vm2
+
+2019-08-16 17:59:53,904 root         ERROR   : Run command failed! (code:-9, erro:None)
+cmd: [virt-install --connect qemu:///system --name vm2 --ram 128 --arch x86_64 --disk /home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2,bus=virtio,format=raw --boot kernel=/home/nicter/Desktop/vmi_project/image/x86_64/bzImage,kernel_args="root=/dev/vda" --network network=default --hvm]
+
+Starting install...
+Domain installation still in progress. Waiting for installation to complete.
+Domain has shutdown. Continuing.
+Domain creation completed.
+You can restart your domain by running:
+  virsh --connect qemu:///system start vm2
+
+2019-08-16 18:00:27,814 root         ERROR   : Run command failed! (code:-9, erro:None)
+cmd: [ping -c 1 8.8.8.8; sleep 6]
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=52 time=5.48 ms
+
+--- 8.8.8.8 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 5.488/5.488/5.488/0.000 ms
+
+2019-08-16 18:00:47,768 root         ERROR   : Run command failed! (code:-9, erro:None)
+cmd: [ping -c 1 8.8.8.8; sleep 6]
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=52 time=4.15 ms
+
+--- 8.8.8.8 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 4.154/4.154/4.154/0.000 ms
+
+2019-08-16 18:02:32,842 manager      ERROR   : VM [vm2] already exist.
+2019-08-16 18:05:38,531 manager      ERROR   : VM [vm2] already exist.
+2019-08-16 18:07:20,358 manager      ERROR   : VM [vm2] already exist.
+2019-08-16 18:09:30,579 manager      ERROR   : VM [vm2] already exist.
+2019-08-16 18:11:07,387 root         ERROR   : Run command failed! (code:1, erro:None)
+cmd: [mkfifo /tmp/vm2-pipe.in /tmp/vm2-pipe.out]
+
+2019-08-16 18:11:07,393 manager      ERROR   : VM [vm2] already exist.
+2019-08-16 18:16:15,545 root         ERROR   : Run command failed! (code:1, erro:None)
+cmd: [mkfifo /tmp/vm2-pipe.in]
+
+2019-08-16 18:16:15,555 root         ERROR   : Run command failed! (code:1, erro:None)
+cmd: [mkfifo /tmp/vm2-pipe.out]
+
+2019-08-16 18:16:15,570 manager      ERROR   : VM [vm2] already exist.
+2019-08-16 18:18:05,773 manager      ERROR   : VM [vm2] already exist.
+2019-08-16 18:27:16,093 manager      ERROR   : pipe [/tmp/vm2-pipe.in] already exist.
+2019-08-16 18:27:16,094 manager      ERROR   : pipe [/tmp/vm2-pipe.out] already exist.
+2019-08-16 18:27:16,102 manager      ERROR   : VM [vm2] already exist.
+2019-08-16 18:28:09,136 manager      ERROR   : pipe [/tmp/vm2-pipe.in] already exist.
+2019-08-16 18:28:09,136 manager      ERROR   : pipe [/tmp/vm2-pipe.out] already exist.
+2019-08-16 18:28:09,142 manager      ERROR   : VM [vm2] already exist.
+2019-08-16 18:28:36,078 manager      ERROR   : pipe [/tmp/vm2-pipe.in] already exist.
+2019-08-16 18:28:36,079 manager      ERROR   : pipe [/tmp/vm2-pipe.out] already exist.
+2019-08-16 18:28:36,090 manager      ERROR   : VM [vm2] already exist.
+2019-08-16 18:28:55,140 manager      ERROR   : pipe [/tmp/vm2-pipe.in] already exist.
+2019-08-16 18:28:55,140 manager      ERROR   : pipe [/tmp/vm2-pipe.out] already exist.
+2019-08-16 18:28:55,146 manager      ERROR   : disk [/home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2] already exist.
+2019-08-16 18:28:56,094 root         ERROR   : Run command failed! (code:1, erro:None)
+cmd: [virt-install --connect qemu:///system --name vm2 --ram 128 --arch x86_64 --disk /home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2,bus=virtio,format=raw --boot kernel=/home/nicter/Desktop/vmi_project/image/x86_64/bzImage,kernel_args="root=/dev/vda" --network network=default--hvm --noautoconsole]
+
+Starting install...
+
+2019-08-16 18:31:27,713 manager      ERROR   : pipe [/tmp/vm2-pipe.in] already exist.
+2019-08-16 18:31:27,714 manager      ERROR   : pipe [/tmp/vm2-pipe.out] already exist.
+2019-08-16 18:31:27,722 manager      ERROR   : disk [/home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2] already exist.
+2019-08-16 18:31:28,490 root         ERROR   : Run command failed! (code:1, erro:None)
+cmd: [virt-install --connect qemu:///system --name vm2 --ram 128 --arch x86_64 --disk /home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2,bus=virtio,format=raw --boot kernel=/home/nicter/Desktop/vmi_project/image/x86_64/bzImage,kernel_args="root=/dev/vda" --network network=default --hvm --noautoconsole --serial pipe:vm2-pipe]
+
+Starting install...
+
+2019-08-16 18:33:36,764 manager      ERROR   : pipe [/tmp/vm2-pipe.in] already exist.
+2019-08-16 18:33:36,764 manager      ERROR   : pipe [/tmp/vm2-pipe.out] already exist.
+2019-08-16 18:33:36,770 manager      ERROR   : disk [/home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2] already exist.
+2019-08-16 18:33:38,587 root         ERROR   : Run command failed! (code:1, erro:None)
+cmd: [virt-install --connect qemu:///system --name vm2 --ram 128 --arch x86_64 --disk /home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2,bus=virtio,format=raw --boot kernel=/home/nicter/Desktop/vmi_project/image/x86_64/bzImage,kernel_args="root=/dev/vda" --network network=default --hvm --noautoconsole --serial pipe,path=vm2-pipe]
+
+Starting install...
+
+2019-08-16 18:35:10,796 manager      ERROR   : pipe [/tmp/vm2-pipe.in] already exist.
+2019-08-16 18:35:10,796 manager      ERROR   : pipe [/tmp/vm2-pipe.out] already exist.
+2019-08-16 18:35:10,802 manager      ERROR   : disk [/home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2] already exist.
+2019-08-16 18:35:12,670 root         ERROR   : Run command failed! (code:1, erro:None)
+cmd: [virt-install --connect qemu:///system --name vm2 --ram 128 --arch x86_64 --disk /home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2,bus=virtio,format=raw --boot kernel=/home/nicter/Desktop/vmi_project/image/x86_64/bzImage,kernel_args="root=/dev/vda" --network network=default --hvm --noautoconsole --serial pipe,path=/tmp/vm2-pipe]
+
+Starting install...
+
+2019-08-16 18:41:25,678 manager      ERROR   : pipe [/tmp/vm2-pipe.in] already exist.
+2019-08-16 18:41:25,679 manager      ERROR   : pipe [/tmp/vm2-pipe.out] already exist.
+2019-08-16 18:41:25,692 manager      ERROR   : disk [/home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2] already exist.
+2019-08-16 18:41:53,583 manager      ERROR   : pipe [/tmp/vm2-pipe.in] already exist.
+2019-08-16 18:41:53,583 manager      ERROR   : pipe [/tmp/vm2-pipe.out] already exist.
+2019-08-16 18:42:14,013 manager      ERROR   : pipe [/tmp/vm2-pipe.in] already exist.
+2019-08-16 18:42:14,014 manager      ERROR   : pipe [/tmp/vm2-pipe.out] already exist.
+2019-08-16 18:42:48,101 manager      ERROR   : VM [vm2] already exist.
+2019-08-16 18:43:18,439 manager      ERROR   : pipe [/tmp/vm2-pipe.in] already exist.
+2019-08-16 18:43:18,440 manager      ERROR   : pipe [/tmp/vm2-pipe.out] already exist.
+2019-08-16 18:45:13,146 manager      ERROR   : pipe [/tmp/vm2-pipe.in] already exist.
+2019-08-16 18:45:13,179 manager      ERROR   : pipe [/tmp/vm2-pipe.out] already exist.
+2019-08-16 18:46:19,736 root         ERROR   : Run command failed! (code:1, erro:None)
+cmd: [virt-install --connect qemu:///system --name vm2 --ram 128 --arch x86_64 --disk /home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2,bus=virtio,format=raw --boot kernel=/home/nicter/Desktop/vmi_project/image/x86_64/bzImage,kernel_args="root=/dev/vda" --network network=default --hvm --noautoconsole --serial pipe,path=/tmp/vm2-pipe]
+
+Starting install...
+
+2019-08-16 18:48:10,871 manager      ERROR   : pipe [/tmp/vm2-pipe.in] already exist.
+2019-08-16 18:48:10,904 manager      ERROR   : pipe [/tmp/vm2-pipe.out] already exist.
+2019-08-16 18:48:10,918 manager      ERROR   : disk [/home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2] already exist.
+2019-08-16 18:48:16,213 root         ERROR   : Run command failed! (code:1, erro:None)
+cmd: [virt-install --connect qemu:///system --name vm2 --ram 128 --arch x86_64 --disk /home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2,bus=virtio,format=raw --boot kernel=/home/nicter/Desktop/vmi_project/image/x86_64/bzImage,kernel_args="root=/dev/vda" --network network=default --hvm --noautoconsole --serial pipe,path=/tmp/vm2-pipe.in]
+
+Starting install...
+
+2019-08-16 18:48:26,430 manager      ERROR   : pipe [/tmp/vm2-pipe.in] already exist.
+2019-08-16 18:48:26,431 manager      ERROR   : pipe [/tmp/vm2-pipe.out] already exist.
+2019-08-16 18:48:26,435 manager      ERROR   : disk [/home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2] already exist.
+2019-08-16 18:48:49,478 root         ERROR   : Run command failed! (code:1, erro:None)
+cmd: [virt-install --connect qemu:///system --name vm2 --ram 128 --arch x86_64 --disk /home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2,bus=virtio,format=raw --boot kernel=/home/nicter/Desktop/vmi_project/image/x86_64/bzImage,kernel_args="root=/dev/vda" --network network=default --hvm --noautoconsole --serial pipe,path=/tmp/vm2-pipe.in]
+
+Starting install...
+
+2019-08-16 18:52:19,961 manager      ERROR   : pipe [/tmp/vm2-pipe.in] already exist.
+2019-08-16 18:52:19,978 manager      ERROR   : pipe [/tmp/vm2-pipe.out] already exist.
+2019-08-16 18:52:19,993 manager      ERROR   : disk [/home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2] already exist.
+2019-08-16 18:53:01,391 root         ERROR   : Run command failed! (code:1, erro:None)
+cmd: [sudo virt-install --connect qemu:///system --name vm2 --ram 128 --arch x86_64 --disk /home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2,bus=virtio,format=raw --boot kernel=/home/nicter/Desktop/vmi_project/image/x86_64/bzImage,kernel_args="root=/dev/vda" --network network=default --hvm --noautoconsole --serial pipe,path=/tmp/vm2-pipe.in]
+
+Starting install...
+
+2019-08-16 18:53:35,400 manager      ERROR   : pipe [/tmp/vm2-pipe.in] already exist.
+2019-08-16 18:53:35,418 manager      ERROR   : pipe [/tmp/vm2-pipe.out] already exist.
+2019-08-16 18:53:35,430 manager      ERROR   : disk [/home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2] already exist.
+2019-08-16 18:57:08,121 root         ERROR   : Run command failed! (code:1, erro:None)
+cmd: [sudo virt-install --connect qemu:///system --name vm2 --ram 128 --arch x86_64 --disk /home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2,bus=virtio,format=raw --boot kernel=/home/nicter/Desktop/vmi_project/image/x86_64/bzImage,kernel_args="root=/dev/vda" --network network=default --hvm --noautoconsole --serial pipe,path=/tmp/vm2-pipe]
+
+Starting install...
+
+2019-08-16 19:02:46,553 manager      ERROR   : pipe [/tmp/vm2-pipe.in] already exist.
+2019-08-16 19:02:46,553 manager      ERROR   : pipe [/tmp/vm2-pipe.out] already exist.
+2019-08-16 19:02:46,567 manager      ERROR   : disk [/home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2] already exist.
+2019-08-16 19:03:05,479 manager      ERROR   : pipe [/tmp/vm2-pipe.in] already exist.
+2019-08-16 19:03:05,479 manager      ERROR   : pipe [/tmp/vm2-pipe.out] already exist.
+2019-08-16 19:03:05,488 manager      ERROR   : disk [/home/nicter/Desktop/vmi_project/image/x86_64/vm2.ext2] already exist.
+2019-08-16 19:18:10,067 manager      ERROR   : pipe [/tmp/vm2-pipe.in] already exist.
+2019-08-16 19:18:10,067 manager      ERROR   : pipe [/tmp/vm2-pipe.out] already exist.
+2019-08-16 19:18:10,072 manager      ERROR   : VM [vm2] already exist.
+2019-08-16 19:18:22,746 manager      ERROR   : pipe [/tmp/vm2-pipe.in] already exist.
+2019-08-16 19:18:22,746 manager      ERROR   : pipe [/tmp/vm2-pipe.out] already exist.
+2019-08-16 19:18:37,243 root         ERROR   : Run command failed! (code:1, erro:None)
+cmd: [sudo virt-install --connect qemu:///system --name vm3 --ram 128 --arch x86_64 --disk /home/nicter/Desktop/vmi_project/image/x86_64/vm3.ext2,bus=virtio,format=raw --boot kernel=/home/nicter/Desktop/vmi_project/image/x86_64/bzImage,kernel_args="root=/dev/vda" --network network=default --hvm --noautoconsole --serial pipe,path=pipe:/tmp/vm3-pipe]
+
+Starting install...
+
+2019-08-16 19:19:00,946 manager      ERROR   : disk [/home/nicter/Desktop/vmi_project/image/x86_64/vm3.ext2] already exist.
+2019-08-16 19:19:08,341 root         ERROR   : Run command failed! (code:1, erro:None)
+cmd: [sudo virt-install --connect qemu:///system --name vm3 --ram 128 --arch x86_64 --disk /home/nicter/Desktop/vmi_project/image/x86_64/vm3.ext2,bus=virtio,format=raw --boot kernel=/home/nicter/Desktop/vmi_project/image/x86_64/bzImage,kernel_args="root=/dev/vda" --network network=default --hvm --noautoconsole --serial pipe,path=pipe:/tmp/vm3-pipe]
+
+Starting install...
+
+2019-08-16 19:19:45,648 manager      ERROR   : pipe [/tmp/vm3-pipe.in] already exist.
+2019-08-16 19:19:45,648 manager      ERROR   : pipe [/tmp/vm3-pipe.out] already exist.
+2019-08-16 19:19:45,653 manager      ERROR   : disk [/home/nicter/Desktop/vmi_project/image/x86_64/vm3.ext2] already exist.
+2019-08-16 19:19:55,336 root         ERROR   : Run command failed! (code:1, erro:None)
+cmd: [sudo virt-install --connect qemu:///system --name vm3 --ram 128 --arch x86_64 --disk /home/nicter/Desktop/vmi_project/image/x86_64/vm3.ext2,bus=virtio,format=raw --boot kernel=/home/nicter/Desktop/vmi_project/image/x86_64/bzImage,kernel_args="root=/dev/vda" --network network=default --hvm --noautoconsole --serial pipe,path=/tmp/vm3-pipe]
+
+Starting install...
+

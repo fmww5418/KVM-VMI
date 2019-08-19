@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+
+# buildroot image
+image/
+
+# log files
+log/
+
+.idea/

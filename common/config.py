@@ -6,8 +6,14 @@ except:
 
 from enum import Enum
 import os
+import logging
 
 DEBUG = True
+
+
+class VMArch(Enum):
+    x86_64 = 'x86_64'
+    x86 = 'i386'
 
 
 class LogLevel(Enum):
@@ -18,29 +24,33 @@ class LogLevel(Enum):
     CRITICAL = 16
     ALL = 31
 
-class LogType(Enum):
-    LOG_PATH = 'log_path'
-    LOG_INFO = 'log_infos'
-    LOG_DEBUG = 'log_debugs'
-    LOG_ERROR = 'log_errors'
-    LOG_WARNING = 'log_warnings'
 
 class EnvType(Enum):
-    PREFIX = 'prefix'
+    SECTION = 'installation'
+    PREFIX = 'root'
+    LOG_PATH = 'log_path'
+
+
+class x86_64(Enum):
+    SECTION = 'x86_64'
+    PATH = 'x86_64_path'
+    KERNEL = 'kernel_name'
+    SRC_DISK = 'src_disk_name'
+    RAM_SIZE = 'ram'
 
 
 class Config:
 
     __conf = {
-        'installation': {
-            EnvType.PREFIX.value: '/'
+        EnvType.SECTION.value: {
+            EnvType.PREFIX.value: '/',
+            EnvType.LOG_PATH.value: 'log/'
         },
-        'log': {
-            LogType.LOG_PATH.value: 'log/',
-            LogType.LOG_INFO.value: False,
-            LogType.LOG_DEBUG.value: False,
-            LogType.LOG_ERROR.value: False,
-            LogType.LOG_WARNING.value: False,
+        x86_64.SECTION.value: {
+            x86_64.PATH.value: '/image/x86_64',
+            x86_64.KERNEL.value: 'bzImage',
+            x86_64.SRC_DISK.value: 'rootfs.ext2',
+            x86_64.RAM_SIZE.value: '128'
         }
     }
 
@@ -52,6 +62,8 @@ class Config:
         for section, v in Config.__conf.items():
             for name, default in v.items():
                 Config.__conf[section][name] = Config.get_with_default(section, name, default)
+
+        logging.debug("config load successfully!", Config.__conf)
 
     @staticmethod
     def get_with_default(section, name, default=None):
@@ -67,6 +79,7 @@ class Config:
                     return Config.cfg.get(section, name)
 
         except (configparser.NoSectionError, configparser.NoOptionError):
+            logging.error("Can't get config. (SECTION: %s, NAME: %s)\n" % (section, name))
             if DEBUG:
                 print("Can't get config. (SECTION: %s, NAME: %s)\n" % (section, name))
             if default is None:
@@ -77,15 +90,51 @@ class Config:
     def get_value(name, section=None):
         """Return the value of configuration name"""
 
-        for s, v in Config.__conf.items():
-            if name in v:
-                return Config.__conf[s][name]
-
         if section is not None and section in Config.__conf:
             if name in Config.__conf[section]:
                 return Config.__conf[section][name]
 
+        for s, v in Config.__conf.items():
+            if name in v:
+                return Config.__conf[s][name]
+
         return None
+
+    @staticmethod
+    def get_src_disk_path(arch):
+        if arch == VMArch.x86_64:
+            disk_path = os.path.join(Config.get_value(EnvType.PREFIX.value),
+                                     Config.get_value(x86_64.PATH.value, x86_64.SECTION.value),
+                                     Config.get_value(x86_64.SRC_DISK.value))
+
+        return disk_path
+
+    @staticmethod
+    def get_disk_path(arch, disk_name):
+        if arch == VMArch.x86_64:
+            disk_path = os.path.join(Config.get_value(EnvType.PREFIX.value),
+                                     Config.get_value(x86_64.PATH.value, x86_64.SECTION.value),
+                                     disk_name+os.path.splitext(Config.get_value(x86_64.SRC_DISK.value))[1])
+
+        return disk_path
+
+    @staticmethod
+    def get_kernel_path(arch):
+        if arch == VMArch.x86_64:
+            kernel_path = os.path.join(Config.get_value(EnvType.PREFIX.value),
+                                       Config.get_value(x86_64.PATH.value, x86_64.SECTION.value),
+                                       Config.get_value(x86_64.KERNEL.value))
+
+        return kernel_path
+
+    @staticmethod
+    def get_ram_size(arch):
+        if arch == VMArch.x86_64:
+            ram = Config.get_value(x86_64.RAM_SIZE.value, x86_64.SECTION.value)
+
+        return ram
+
 
 
 Config.init_config(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'config.ini'))
+print Config.get_value('x86_64_path')
