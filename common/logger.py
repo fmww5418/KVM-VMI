@@ -5,52 +5,27 @@ import logging.config
 import threading
 import yaml
 
-from common.config import Config, EnvType, LogType, LogLevel
+from config import Config, EnvType, LogLevel
 
 formatter = ''
 
 
-class MyLogger(logging.Logger):
+class SingleLevelFilter(logging.Filter):
 
-    def __init__(self, name, level=logging.NOTSET):
-        self._level = 0
-        self._count = 0
-        self._countLock = threading.Lock()
+    def __init__(self, passlevel, accept, name=''):
+        self.passlevel = passlevel
+        self.accept = accept
 
-        return super(MyLogger, self).__init__(name, level)
+        return super(SingleLevelFilter, self).__init__(name)
 
-    def extraSetLevel(self, level):
-        """
-        .DEBUG    : 1
-        .INFO     : 2
-        .WARNING  : 4
-        .ERROR    : 8
-        .CRITICAL : 16
-
-        :param level: It's a mask bit that decide to what level to print
-        :return: level
-        """
-        self._level = level
-        return self._level
-
-    def debug(self, msg, *args, **kwargs):
-        print(Config.get_value(LogType.LOG_DEBUG.value))
-        if self._level & LogLevel.DEBUG.value:
-            return super(MyLogger, self)._log(logging.DEBUG, msg, args, **kwargs)
-
-    def info(self, msg, *args, **kwargs):
-        if self._level & LogLevel.INFO.value:
-            print(msg)
-            return super(MyLogger, self)._log(logging.INFO, msg, args, **kwargs)
-
-    def warning(self, msg, *args, **kwargs):
-        if self._level & LogLevel.WARNING.value:
-            return super(MyLogger, self)._log(logging.WARNING, msg, args, **kwargs)
-
-    def error(self, msg, *args, **kwargs):
-        if self._level & LogLevel.ERROR.value:
-            return super(MyLogger, self)._log(logging.ERROR, msg, args, **kwargs)
-
+    def filter(self, record):
+        for i, lv in enumerate(self.passlevel):
+            try:
+                if record.levelno == lv:
+                    return self.accept[i]
+            except IndexError:
+                return False
+        return False
 
 def setup_logger(name, log_file, level=logging.INFO):
     """Function setup as many loggers as you want
@@ -67,7 +42,7 @@ def setup_logger(name, log_file, level=logging.INFO):
     """
 
     full_path = Config.get_value(EnvType.PREFIX.value) +\
-                Config.get_value(LogType.LOG_PATH.value) + log_file
+                Config.get_value(EnvType.LOG_PATH.value) + log_file
     dir_path, file_name = os.path.split(full_path)
 
     if not os.path.isdir(dir_path):
@@ -110,11 +85,24 @@ def init_logger():
     # set custom class for logger
     #logging.setLoggerClass(MyLogger)
 
-
 # test
 if __name__ == "__main__":
     init_logger()
 
+    """
+    h1 = logging.StreamHandler(sys.stdout)
+    f1 = SingleLevelFilter([logging.INFO, logging.DEBUG], [False, True])
+    h1.addFilter(f1)
+    rootLogger = logging.getLogger()
+    #rootLogger.addHandler(h1)
+    logger = logging.getLogger("debug.logger")
+    logger.setLevel(logging.DEBUG)
+    logger.debug("A DEBUG message")
+    logger.info("An INFO message")
+    logger.warning("A WARNING message")
+    logger.error("An ERROR message")
+    logger.critical("A CRITICAL message")
+    """
     # first file logger
     root = setup_logger('root', '/abc/root.log')
 
