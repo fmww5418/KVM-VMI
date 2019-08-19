@@ -37,4 +37,6 @@ image/
 # log files
 log/
 
+# IDE config
 .idea/
+
