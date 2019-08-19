@@ -2,6 +2,7 @@
 import libvirt
 import sys
 import os
+import math
 import logging
 from functools import wraps
 from common.logger import setup_logger, init_logger
@@ -137,7 +138,6 @@ class LibvirtManager:
 if __name__ == "__main__":
     init_logger()
     manager = LibvirtManager()
-    manager.create_pipe("vm3")
     #print [vm.name() for id, vm in manager.get_running_vm().items()]
     manager.create_vm(VMArch.x86_64, "vm3")
 

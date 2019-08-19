@@ -1,5 +1,15 @@
 import logging
 from contextlib import contextmanager
+import os
+
+def check_and_mkdir(path):
+    dir_path, file_name = os.path.split(path)
+    if not os.path.isdir(dir_path):
+        try:
+            os.mkdir(dir_path)
+        except OSError as exc:
+            logging.error('Create folder failed. (%s) %s' % (dir_path, exc.message))
+            raise
 
 
 def init_logger():

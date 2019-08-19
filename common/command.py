@@ -9,12 +9,11 @@ from common.logger import init_logger
 def kill(process):
     try:
         process.kill()
-        print "kill"
     except OSError:
         pass  # ignore
 
 
-def command(cmd, timeout=0):
+def command(cmd, timeout=0, ignore=False):
     process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
 
     if timeout:
@@ -32,7 +31,8 @@ def command(cmd, timeout=0):
             process.terminate()
         except OSError:
             pass  # ignore
-        logging.error("Run command failed! (code:%d, erro:%s)\ncmd: [%s]\n%s" %
+        if not ignore:
+            logging.error("Run command failed! (code:%d, erro:%s)\ncmd: [%s]\n%s" %
                       (process.returncode, error, cmd, output))
         return None
 

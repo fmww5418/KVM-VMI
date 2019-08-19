@@ -31,5 +31,5 @@ handlers:
 #            handlers: [warning_file_handler]
 #            propagate: no
 root:
-  level: INFO
+  level: DEBUG
   handlers: [console,warning_file_handler,error_file_handler]

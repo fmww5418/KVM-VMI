@@ -4,6 +4,7 @@ import logging
 import logging.config
 import threading
 import yaml
+from utils import check_and_mkdir
 
 from config import Config, EnvType, LogLevel
 
@@ -45,12 +46,7 @@ def setup_logger(name, log_file, level=logging.INFO):
                 Config.get_value(EnvType.LOG_PATH.value) + log_file
     dir_path, file_name = os.path.split(full_path)
 
-    if not os.path.isdir(dir_path):
-        try:
-            os.mkdir(dir_path)
-        except OSError as exc:
-            logging.error('Create folder failed. (%s)' % dir_path)
-            raise
+    check_and_mkdir(dir_path)
 
     handler = logging.FileHandler(full_path)
     handler.setFormatter(formatter)

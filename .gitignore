@@ -37,6 +37,9 @@ image/
 # log files
 log/
 
+# dump memory
+dump/
+
 # IDE config
 .idea/
 

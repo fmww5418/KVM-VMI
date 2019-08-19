@@ -37,22 +37,33 @@ class x86_64(Enum):
     KERNEL = 'kernel_name'
     SRC_DISK = 'src_disk_name'
     RAM_SIZE = 'ram'
+    USERNAME = 'username'
+    PASSWORD = 'password'
+    LIME_FORMAT = 'lime_format'
+    LIME_PATH = 'lime_module'
+    LINE_PORT = 'lime_port'
 
 
 class Config:
-
     __conf = {
         EnvType.SECTION.value: {
             EnvType.PREFIX.value: '/',
             EnvType.LOG_PATH.value: 'log/'
         },
         x86_64.SECTION.value: {
-            x86_64.PATH.value: '/image/x86_64',
+            x86_64.PATH.value: 'x86_64',
             x86_64.KERNEL.value: 'bzImage',
             x86_64.SRC_DISK.value: 'rootfs.ext2',
-            x86_64.RAM_SIZE.value: '128'
+            x86_64.RAM_SIZE.value: '128',
+            x86_64.USERNAME.value: 'root',
+            x86_64.PASSWORD.value: 'root',
+            x86_64.LIME_PATH.value: '/lib/libcpp.so',
+            x86_64.LINE_PORT.value: '4444',
+            x86_64.LIME_FORMAT.value: 'lime',
+
         }
     }
+
 
     @staticmethod
     def init_config(file_path):
@@ -101,9 +112,33 @@ class Config:
         return None
 
     @staticmethod
+    def get_dump_port(arch):
+        if arch == VMArch.x86_64:
+            return Config.get_value(x86_64.LINE_PORT.value)
+
+    @staticmethod
+    def get_dump_format(arch):
+        if arch == VMArch.x86_64:
+            return Config.get_value(x86_64.LIME_FORMAT.value)
+
+    @staticmethod
+    def get_dump_path(arch):
+        if arch == VMArch.x86_64:
+            return Config.get_value(x86_64.LIME_PATH.value)
+
+    @staticmethod
+    def get_save_dump_path(arch, name):
+        if arch == VMArch.x86_64:
+            disk_path = os.path.join(Config.get_value(EnvType.PREFIX.value), "dump/",
+                                     Config.get_value(x86_64.PATH.value, x86_64.SECTION.value),
+                                     "%s.%s" % (name, Config.get_value(x86_64.LIME_FORMAT.value)))
+
+        return disk_path
+
+    @staticmethod
     def get_src_disk_path(arch):
         if arch == VMArch.x86_64:
-            disk_path = os.path.join(Config.get_value(EnvType.PREFIX.value),
+            disk_path = os.path.join(Config.get_value(EnvType.PREFIX.value), "image/",
                                      Config.get_value(x86_64.PATH.value, x86_64.SECTION.value),
                                      Config.get_value(x86_64.SRC_DISK.value))
 
@@ -112,7 +147,7 @@ class Config:
     @staticmethod
     def get_disk_path(arch, disk_name):
         if arch == VMArch.x86_64:
-            disk_path = os.path.join(Config.get_value(EnvType.PREFIX.value),
+            disk_path = os.path.join(Config.get_value(EnvType.PREFIX.value), "image/",
                                      Config.get_value(x86_64.PATH.value, x86_64.SECTION.value),
                                      disk_name+os.path.splitext(Config.get_value(x86_64.SRC_DISK.value))[1])
 
@@ -121,7 +156,7 @@ class Config:
     @staticmethod
     def get_kernel_path(arch):
         if arch == VMArch.x86_64:
-            kernel_path = os.path.join(Config.get_value(EnvType.PREFIX.value),
+            kernel_path = os.path.join(Config.get_value(EnvType.PREFIX.value), "image/",
                                        Config.get_value(x86_64.PATH.value, x86_64.SECTION.value),
                                        Config.get_value(x86_64.KERNEL.value))
 
@@ -133,7 +168,6 @@ class Config:
             ram = Config.get_value(x86_64.RAM_SIZE.value, x86_64.SECTION.value)
 
         return ram
-
 
 
 Config.init_config(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'config.ini'))
