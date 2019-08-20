@@ -10,6 +10,60 @@ from config import Config, EnvType, LogLevel
 
 formatter = ''
 
+BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE = range(8)
+
+#These are the sequences need to get colored ouput
+RESET_SEQ = "\033[0m"
+COLOR_SEQ = "\033[1;%dm"
+BOLD_SEQ = "\033[1m"
+
+COLORS = {
+    'WARNING': YELLOW,
+    'INFO': WHITE,
+    'DEBUG': BLUE,
+    'CRITICAL': YELLOW,
+    'ERROR': RED
+}
+
+
+def formatter_message(message, use_color=True):
+    if use_color:
+        message = message.replace("$RESET", RESET_SEQ).replace("$BOLD", BOLD_SEQ)
+    else:
+        message = message.replace("$RESET", "").replace("$BOLD", "")
+    return message
+
+
+class ColoredFormatter(logging.Formatter):
+    def __init__(self, msg, use_color=True):
+        logging.Formatter.__init__(self, msg)
+        self.use_color = use_color
+
+    def format(self, record):
+        levelname = record.levelname
+        if self.use_color and levelname in COLORS:
+            levelname_color = COLOR_SEQ % (30 + COLORS[levelname]) + levelname + RESET_SEQ
+            record.levelname = levelname_color
+
+        return super(ColoredFormatter, self).format(record)
+
+
+class ColoredLogger(logging.Logger):
+    """Custom logger class with multiple destinations"""
+    #FORMAT = "[$BOLD%(name)-20s$RESET][%(levelname)-18s]  %(message)s ($BOLD%(filename)s$RESET:%(lineno)d)"
+    COLOR_FORMAT = formatter_message(formatter, True)
+
+    def __init__(self, name):
+        logging.Logger.__init__(self, name, logging.DEBUG)
+
+        color_formatter = ColoredFormatter(self.COLOR_FORMAT)
+
+        console = logging.StreamHandler()
+        console.setFormatter(color_formatter)
+
+        self.addHandler(console)
+        return
+
 
 class SingleLevelFilter(logging.Filter):
 
@@ -28,6 +82,7 @@ class SingleLevelFilter(logging.Filter):
                 return False
         return False
 
+
 def setup_logger(name, log_file, level=logging.INFO):
     """Function setup as many loggers as you want
 
@@ -44,9 +99,8 @@ def setup_logger(name, log_file, level=logging.INFO):
 
     full_path = Config.get_value(EnvType.PREFIX.value) +\
                 Config.get_value(EnvType.LOG_PATH.value) + log_file
-    dir_path, file_name = os.path.split(full_path)
 
-    check_and_mkdir(dir_path)
+    check_and_mkdir(full_path)
 
     handler = logging.FileHandler(full_path)
     handler.setFormatter(formatter)
@@ -70,6 +124,10 @@ def init_logger():
 
         # read default formatter
         formatter = logging.Formatter(dict_conf['formatters']['default']['format'])
+
+        # set logger class for colored level name
+        #logging.setLoggerClass(ColoredLogger)
+
         # set log location as abstract path
         for k, v in dict_conf['handlers'].items():
             if 'filename' in v:
@@ -100,12 +158,14 @@ if __name__ == "__main__":
     logger.critical("A CRITICAL message")
     """
     # first file logger
-    root = setup_logger('root', '/abc/root.log')
+    #root = setup_logger('root', '/abc/root.log', logging.DEBUG)
 
     logger = setup_logger('first_logger', '/abc/first_logfile.log')
-    logging.getLogger('first_logger').addHandler(root)
+    #logging.getLogger('first_logger').addHandler(root)
 
-    root.info('This is root')
-    logger.info('This is logger')
+    #root.info('This is root')
+    logging.debug("tat")
+    logger.error('This is logger')
+    #root.debug('test')
 
-    logging.debug("aaa")
+    #root.warning("aaa")

@@ -3,6 +3,8 @@ disable_existing_loggers: False
 formatters:
   default:
     format: '%(asctime)s %(name)-12s %(levelname)-8s: %(message)s'
+  debug:
+    format: '%(asctime)s %(name)-12s %(levelname)-8s: %(message)s (%(filename)s:%(lineno)d)'
 handlers:
   console:
     class: logging.StreamHandler
@@ -32,4 +34,5 @@ handlers:
 #            propagate: no
 root:
   level: DEBUG
+  formatter: default
   handlers: [console,warning_file_handler,error_file_handler]

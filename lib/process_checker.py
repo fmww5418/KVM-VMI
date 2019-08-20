@@ -1,7 +1,7 @@
 import logging
 from common.repeat_timer import RepeatableTimer
 from common.utils import pause
-from common.logger import setup_logger
+from common.logger import setup_logger, init_logger
 from libvmi import Libvmi, VMIOS
 
 
@@ -85,6 +85,8 @@ class ProcessChecker:
             return process_list
 
     def _check_process(self):
+        self._timer.start()
+
         ps_list = self._get_process_list()
         ps_set = set(ps_list.keys())
 
@@ -104,8 +106,6 @@ class ProcessChecker:
         self._ori_ps_list = ps_list
         self._ori_ps_set = ps_set
 
-        self._timer.start()
-
     def start(self):
         """Start a thread that compares both of origin process list and a new one"""
         self._timer.start()
@@ -114,3 +114,10 @@ class ProcessChecker:
         """stop process checker"""
         self._timer.cancel()
         self._vmi.destroy()
+
+
+if __name__ == "__main__":
+    init_logger()
+    vm_name = "vm4"
+    checkers = ProcessChecker(vm_name)
+    checkers.start()

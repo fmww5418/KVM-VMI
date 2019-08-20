@@ -62,13 +62,13 @@ class LibvirtManager:
         ram = Config.get_ram_size(arch)
 
         if arch == VMArch.x86_64:
-            create_cmd = 'sudo virt-install --connect %s --name %s'\
+            create_cmd = 'virt-install --connect %s --name %s'\
                          ' --ram %s --arch x86_64' \
                          ' --disk %s,bus=virtio,format=raw' \
-                         ' --boot kernel=%s,kernel_args="root=/dev/vda"' \
+                         ' --boot kernel=%s,kernel_args="root=/dev/vda console=ttyS0"' \
                          ' --network network=default' \
-                         ' --hvm --noautoconsole --serial pipe,path=/tmp/%s-pipe' \
-                         % (self._target, vm_name, ram, disk_path, kernel_path, vm_name)
+                         ' --hvm --noautoconsole' \
+                         % (self._target, vm_name, ram, disk_path, kernel_path)
 
         self._logger.info('creating VM [%s] ...' % vm_name)
         self._logger.debug(create_cmd)
