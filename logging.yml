@@ -27,12 +27,12 @@ handlers:
     maxBytes: 524288000 # 500M size
     backupCount: 20
     encoding: utf8
-#loggers:
-#    my_module:
-#            level: WARNING
-#            handlers: [warning_file_handler]
-#            propagate: no
+loggers:
+    manager:
+      level: DEBUG
+      handlers: [console]
+      propagate: no
 root:
-  level: DEBUG
+  level: INFO
   formatter: default
   handlers: [console,warning_file_handler,error_file_handler]

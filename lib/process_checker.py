@@ -7,19 +7,23 @@ from libvmi import Libvmi, VMIOS
 
 class ProcessChecker:
 
-    def __init__(self, vm_name, callback=None, interval=10):
-        self._vm_name = vm_name
+    whlte_list = ['sshd', 'insmod']
+
+    def __init__(self, vm, callback=None, interval=10):
+        self._vm = vm
         self._callback = callback
         self._init_vmi()
 
-        self.logger = setup_logger(vm_name, vm_name+'/'+vm_name+'.log')
+        self.logger = setup_logger(self._vm.name, self._vm.name+'/'+self._vm.name+'.log', logging.INFO)
         self._ori_ps_list = self._get_process_list()
         self._ori_ps_set = set(self._ori_ps_list.keys())
-        self._timer = RepeatableTimer(interval, self._check_process)
+        self._timer = RepeatableTimer(interval, self.check_process)
+
+        self._dump_enabled = False
 
     def _init_vmi(self):
         """ Initialize LibVMI """
-        self._vmi = Libvmi(self._vm_name)
+        self._vmi = Libvmi(self._vm.name)
 
         # get ostype
         self._os = self._vmi.get_ostype()
@@ -84,10 +88,12 @@ class ProcessChecker:
 
             return process_list
 
-    def _check_process(self):
+    def check_process(self):
         self._timer.start()
 
         ps_list = self._get_process_list()
+        #ps_list = self._filter_white_list(ps_list)
+
         ps_set = set(ps_list.keys())
 
         new_ps = ps_set - self._ori_ps_set
@@ -95,12 +101,19 @@ class ProcessChecker:
 
         if new_ps:
             for pid in new_ps:
-                self.logger.warning("detected new process. [%s] %s (struct addr:%s)",
+                if ps_list[pid][0] not in self.whlte_list:
+
+                    if not self._vm.dump_enabled:
+                        self._vm.dump_enabled = True
+                        self._callback()
+
+                    self.logger.warning("detected new process. [%s] %s (struct addr:%s)",
                                     pid, ps_list[pid][0], ps_list[pid][1])
 
         if reduce_ps:
             for pid in reduce_ps:
-                self.logger.warning("detected process leave. [%s] %s (struct addr:%s)",
+                if self._ori_ps_list[pid][0] not in self.whlte_list:
+                    self.logger.warning("detected process leave. [%s] %s (struct addr:%s)",
                                     pid, self._ori_ps_list[pid][0], self._ori_ps_list[pid][1])
 
         self._ori_ps_list = ps_list
@@ -116,8 +129,3 @@ class ProcessChecker:
         self._vmi.destroy()
 
 
-if __name__ == "__main__":
-    init_logger()
-    vm_name = "vm4"
-    checkers = ProcessChecker(vm_name)
-    checkers.start()

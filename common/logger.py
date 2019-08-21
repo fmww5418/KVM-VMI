@@ -1,12 +1,9 @@
 import os
-import sys
 import logging
 import logging.config
-import threading
 import yaml
 from utils import check_and_mkdir
-
-from config import Config, EnvType, LogLevel
+from config import Config, EnvType
 
 formatter = ''
 
@@ -165,6 +162,7 @@ if __name__ == "__main__":
 
     #root.info('This is root')
     logging.debug("tat")
+    logger.debug('This is debug msg')
     logger.error('This is logger')
     #root.debug('test')
 

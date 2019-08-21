@@ -1,21 +1,77 @@
 
 import libvirt
-import sys
 import os
-import math
 import logging
 from functools import wraps
 from common.logger import setup_logger, init_logger
 from common.config import VMArch, Config
 from common.command import command
+from common.utils import Const, kb_to_mb
+from xml.dom import minidom
 
+
+class LibvirtVM:
+
+    def __init__(self, name='', arch='', ram=0, username='', password=''):
+        self._name = name
+        self._arch = arch
+        self._ram = ram
+        self._username = username
+        self._password = password
+        self.dump_enabled = False
+
+    @property
+    def arch(self):
+        return self._arch
+
+    @arch.setter
+    def arch(self, arch):
+        self._arch = arch
+
+    @property
+    def ram(self):
+        return self._ram
+
+    @ram.setter
+    def ram(self, ram):
+        if ram <= 0:
+            logging.error("VM's ram configuration isn't correct (%sM)" % ram)
+        else:
+            self._ram = int(ram)
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        self._name = name
+
+    @property
+    def username(self):
+        return self._username
+
+    @username.setter
+    def username(self, username):
+        self._username = username
+
+    @property
+    def password(self):
+        return self._password
+
+    @password.setter
+    def password(self, password):
+        self._password = password
 
 class LibvirtManager:
+
+    Const.STATE, Const.MAXMEMSIZE, Const.MEMSIZE, Const.CPUS, Const.CPUTIME = range(5)
 
     def __init__(self, target="qemu:///system"):
         self._target = target
         self._conn = None
-        self._logger = setup_logger('manager', 'manager.log')
+        self._logger = logging.getLogger('manager')
+        #self._logger = setup_logger('manager', 'manager.log')
         self.show_host_info()
 
     def _connection(func):
@@ -40,7 +96,7 @@ class LibvirtManager:
         self._conn.close()
 
     def _copy_disk(self, arch, vm_name):
-        self._logger.debug('copying a new disk.. %s' % arch.value)
+        self._logger.debug('copying a new disk.. %s' % arch)
         src_disk = Config.get_src_disk_path(arch)
         dst_disk = Config.get_disk_path(arch, vm_name)
 
@@ -61,7 +117,7 @@ class LibvirtManager:
         kernel_path = Config.get_kernel_path(arch)
         ram = Config.get_ram_size(arch)
 
-        if arch == VMArch.x86_64:
+        if arch == VMArch.x86_64.value:
             create_cmd = 'virt-install --connect %s --name %s'\
                          ' --ram %s --arch x86_64' \
                          ' --disk %s,bus=virtio,format=raw' \
@@ -98,16 +154,33 @@ class LibvirtManager:
     def conn(self):
         return self._conn
 
+    def get_vm_arch(self, vm):
+        raw_xml = vm.XMLDesc(0)
+        xml = minidom.parseString(raw_xml)
+        arch = xml.getElementsByTagName('os')[0].childNodes[1].attributes['arch'].value
+
+        return arch
+
+    def _create_VirtVM(self, vm):
+        vm_arch = self.get_vm_arch(vm)
+        name = vm.name()
+        virtVM = LibvirtVM(name, vm_arch,
+                           kb_to_mb(vm.info()[Const.MEMSIZE]),
+                           Config.get_value('username', vm_arch),
+                           Config.get_value('password', vm_arch))
+        return virtVM
+
     @_connection
     def get_running_vm(self):
         """
         Get all running vm.
-        :return: virDomain object
+        :return: dict{name: LibvirtVM object}
         """
         vm_dict = dict()
 
         for vm_id in self._conn.listDomainsID():
-            vm_dict[self._conn.lookupByID(vm_id).name()] = self._conn.lookupByID(vm_id)
+            vm = self._conn.lookupByID(vm_id)
+            vm_dict[vm.name()] = self._create_VirtVM(vm)
 
         return vm_dict
 
@@ -115,12 +188,12 @@ class LibvirtManager:
     def get_inactive_vm(self):
         """
         Get all inactive vm.
-        :return: virDomain object
+        :return: dict{name: LibvirtVM object}
         """
         vm_dict = dict()
 
         for name in self._conn.listDefinedDomains():
-            vm_dict[name] = self._conn.lookupByName(name)
+            vm_dict[name] = self._create_VirtVM(self._conn.lookupByName(name))
 
         return vm_dict
 
@@ -139,6 +212,6 @@ if __name__ == "__main__":
     init_logger()
     manager = LibvirtManager()
     #print [vm.name() for id, vm in manager.get_running_vm().items()]
-    manager.create_vm(VMArch.x86_64, "vm3")
+    #manager.create_vm(VMArch.x86_64.value, "vm3")
 
     

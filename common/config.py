@@ -113,22 +113,22 @@ class Config:
 
     @staticmethod
     def get_dump_port(arch):
-        if arch == VMArch.x86_64:
+        if arch == VMArch.x86_64.value:
             return Config.get_value(x86_64.LINE_PORT.value)
 
     @staticmethod
     def get_dump_format(arch):
-        if arch == VMArch.x86_64:
+        if arch == VMArch.x86_64.value:
             return Config.get_value(x86_64.LIME_FORMAT.value)
 
     @staticmethod
     def get_dump_path(arch):
-        if arch == VMArch.x86_64:
+        if arch == VMArch.x86_64.value:
             return Config.get_value(x86_64.LIME_PATH.value)
 
     @staticmethod
     def get_save_dump_path(arch, name):
-        if arch == VMArch.x86_64:
+        if arch == VMArch.x86_64.value:
             disk_path = os.path.join(Config.get_value(EnvType.PREFIX.value), "dump/",
                                      Config.get_value(x86_64.PATH.value, x86_64.SECTION.value),
                                      "%s.%s" % (name, Config.get_value(x86_64.LIME_FORMAT.value)))
@@ -137,7 +137,7 @@ class Config:
 
     @staticmethod
     def get_src_disk_path(arch):
-        if arch == VMArch.x86_64:
+        if arch == VMArch.x86_64.value:
             disk_path = os.path.join(Config.get_value(EnvType.PREFIX.value), "image/",
                                      Config.get_value(x86_64.PATH.value, x86_64.SECTION.value),
                                      Config.get_value(x86_64.SRC_DISK.value))
@@ -146,7 +146,7 @@ class Config:
 
     @staticmethod
     def get_disk_path(arch, disk_name):
-        if arch == VMArch.x86_64:
+        if arch == VMArch.x86_64.value:
             disk_path = os.path.join(Config.get_value(EnvType.PREFIX.value), "image/",
                                      Config.get_value(x86_64.PATH.value, x86_64.SECTION.value),
                                      disk_name+os.path.splitext(Config.get_value(x86_64.SRC_DISK.value))[1])
@@ -155,7 +155,7 @@ class Config:
 
     @staticmethod
     def get_kernel_path(arch):
-        if arch == VMArch.x86_64:
+        if arch == VMArch.x86_64.value:
             kernel_path = os.path.join(Config.get_value(EnvType.PREFIX.value), "image/",
                                        Config.get_value(x86_64.PATH.value, x86_64.SECTION.value),
                                        Config.get_value(x86_64.KERNEL.value))
@@ -164,7 +164,7 @@ class Config:
 
     @staticmethod
     def get_ram_size(arch):
-        if arch == VMArch.x86_64:
+        if arch == VMArch.x86_64.value:
             ram = Config.get_value(x86_64.RAM_SIZE.value, x86_64.SECTION.value)
 
         return ram
