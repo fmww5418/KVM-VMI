@@ -31,8 +31,11 @@
 *.out
 *.app
 
-# Python cache
+# Python compile cache
 *.pyc
+
+# Mac desktop services
+*.DS_Store
 
 # buildroot image
 image/
