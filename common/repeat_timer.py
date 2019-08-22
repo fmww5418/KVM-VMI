@@ -3,12 +3,13 @@ import time
 
 
 class RepeatableTimer(object):
-    def __init__(self, interval, function, args=[], kwargs={}):
+    def __init__(self, interval, fun, args=[], kwargs={}):
         self._interval = interval
-        self._function = function
+        self._function = fun
         self._args = args
         self._kwargs = kwargs
         self._enable = False
+        self.t = None
 
     def start(self):
         self._enable = True
@@ -17,6 +18,7 @@ class RepeatableTimer(object):
             self.t.start()
 
     def cancel(self):
-        self.t.cancel()
+        if self.t:
+            self.t.cancel()
         self._enable = False
 

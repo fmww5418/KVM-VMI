@@ -29,6 +29,8 @@ class EnvType(Enum):
     SECTION = 'installation'
     PREFIX = 'root'
     LOG_PATH = 'log_path'
+    PROJECT = 'project'
+    VERSION = 'version'
 
 
 class x86_64(Enum):
@@ -48,7 +50,9 @@ class Config:
     __conf = {
         EnvType.SECTION.value: {
             EnvType.PREFIX.value: '/',
-            EnvType.LOG_PATH.value: 'log/'
+            EnvType.LOG_PATH.value: 'log/',
+            EnvType.PROJECT.value: '',
+            EnvType.VERSION.value: ''
         },
         x86_64.SECTION.value: {
             x86_64.PATH.value: 'x86_64',
@@ -169,6 +173,10 @@ class Config:
 
         return ram
 
+    @staticmethod
+    def arch_is_available(arch):
+        return arch in Config.__conf
+
+
 
 Config.init_config(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'config.ini'))
-print Config.get_value('x86_64_path')
