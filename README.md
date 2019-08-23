@@ -89,6 +89,13 @@ $ make busybox-menuconfig    # select the busybox setting you wish to compile
 $ make -j`nproc`
 ```
 
+## Configure
+需調整 config.ini 內的參數
+- root        : 該專案在你作業系統內的絕對路徑
+- lime_module:  編譯完 LiME 的 kernel module，需放在 guest VM 內，並更改在 VM 內對應的絕對路徑
+- sysmap: guest VM OS system map 檔案，在 host 主機的絕對路徑
+- LibVMI config 的設定請依照 LibVMI 的 linux_offset_tool 方法，更換這裡的設定為取得的對應值
+
 ## Troubleshooting
 QEMU 2.11 以下的版本，在編譯時的錯誤 (make)
 ```bash

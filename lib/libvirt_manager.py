@@ -1,3 +1,4 @@
+#!/usr/bin/sudo python
 
 import libvirt
 import os
@@ -6,7 +7,7 @@ from functools import wraps
 from common.logger import setup_logger, init_logger
 from common.config import VMArch, Config
 from common.command import command
-from common.utils import Const, kb_to_mb
+from common.utils import Const, kb_to_mb, have_privileges
 from xml.dom import minidom
 
 
@@ -107,10 +108,23 @@ class LibvirtManager:
 
         return dst_disk
 
+    def _add_libvmi_conf(self, arch, name):
+        confs = Config.get_libvmi_conf(arch)
+        with open('/etc/libvmi.conf', 'a') as out_file:
+            out_file.write("%s {\n" % name)
+            for k, v in confs.items():
+                output = "    %-12s= %s;\n" % (k, v)
+                out_file.write(output)
+            out_file.write("}\n\n")
+
     def create_vm(self, arch, vm_name):
 
         if self.vm_is_exist(vm_name):
             self._logger.error('VM [%s] already exist.' % vm_name)
+            return
+
+        if not have_privileges():
+            self._logger.error('You need root permissions to create VM [%s]' % vm_name)
             return
 
         disk_path = self._copy_disk(arch, vm_name)
@@ -128,7 +142,9 @@ class LibvirtManager:
 
         self._logger.info('creating VM [%s] ...' % vm_name)
         self._logger.debug(create_cmd)
-        self._logger.debug(command(create_cmd, timeout=0))
+        self._logger.debug(command(create_cmd))
+
+        self._add_libvmi_conf(arch, vm_name)
 
         return
 
@@ -212,6 +228,6 @@ if __name__ == "__main__":
     init_logger()
     manager = LibvirtManager()
     #print [vm.name() for id, vm in manager.get_running_vm().items()]
-    #manager.create_vm(VMArch.x86_64.value, "vm3")
+    manager.create_vm(VMArch.x86_64.value, "vm6")
 
     

@@ -7,7 +7,7 @@ from libvmi import Libvmi, VMIOS
 
 class ProcessChecker:
 
-    whlte_list = ['sshd', 'insmod']
+    whlte_list = ['sshd', 'insmod', 'kworker/0:2', 'kworker/u2:2']
 
     def __init__(self, vm, callback=None, interval=10):
         self._vm = vm

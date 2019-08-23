@@ -44,6 +44,13 @@ class x86_64(Enum):
     LIME_FORMAT = 'lime_format'
     LIME_PATH = 'lime_module'
     LINE_PORT = 'lime_port'
+    SYSMAP = 'sysmap'
+    OSTYPE = 'ostype'
+    LINUX_NAME = 'linux_name'
+    LINUX_TASKS = 'linux_tasks'
+    LINUX_MM = 'linux_mm'
+    LINUX_PID = 'linux_pid'
+    LINUX_PGD = 'linux_pgd'
 
 
 class Config:
@@ -64,6 +71,13 @@ class Config:
             x86_64.LIME_PATH.value: '/lib/libcpp.so',
             x86_64.LINE_PORT.value: '4444',
             x86_64.LIME_FORMAT.value: 'lime',
+            x86_64.SYSMAP.value: '/home/Desktop/x86_64/System.map',
+            x86_64.OSTYPE.value: 'Linux',
+            x86_64.LINUX_NAME.value: '0x00',
+            x86_64.LINUX_TASKS.value: '0x00',
+            x86_64.LINUX_MM.value: '0x00',
+            x86_64.LINUX_PID.value: '0x00',
+            x86_64.LINUX_PGD.value: '0x00',
 
         }
     }
@@ -176,6 +190,19 @@ class Config:
     @staticmethod
     def arch_is_available(arch):
         return arch in Config.__conf
+
+    @staticmethod
+    def get_libvmi_conf(arch):
+        if arch == VMArch.x86_64.value:
+            return {x86_64.SYSMAP.value: Config.get_value(x86_64.SYSMAP.value, arch),
+                    x86_64.OSTYPE.value: Config.get_value(x86_64.OSTYPE.value, arch),
+                    x86_64.LINUX_NAME.value: Config.get_value(x86_64.LINUX_NAME.value, arch),
+                    x86_64.LINUX_TASKS.value: Config.get_value(x86_64.LINUX_TASKS.value, arch),
+                    x86_64.LINUX_MM.value: Config.get_value(x86_64.LINUX_MM.value, arch),
+                    x86_64.LINUX_PID.value: Config.get_value(x86_64.LINUX_PID.value, arch),
+                    x86_64.LINUX_PGD.value: Config.get_value(x86_64.LINUX_PGD.value, arch)
+                    }
+
 
 
 

@@ -1,7 +1,21 @@
 from contextlib import contextmanager
 import logging
 import os
+import sys
 import math
+import errno
+
+
+def have_privileges():
+    try:
+        with open('/etc/libvmi.conf', 'a') as out_file:
+            pass
+        return True
+    except IOError as e:
+        if (e[0] == errno.EPERM):
+            return False
+            #print >> sys.stderr, "You need root permissions to do this, laterz!"
+            #sys.exit(1)
 
 
 def check_and_mkdir(path):
