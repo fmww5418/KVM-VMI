@@ -67,7 +67,7 @@ $ sudo python setup.py install
 - Volatility
 ```bash
 $ git clone https://github.com/volatilityfoundation/volatility.git
-$ sudo apt-get install yara python-pip
+$ sudo apt-get install yara python-pip dwarfdump
 $ sudo -H pip install --upgrade pip
 $ sudo -H pip install distorm3 pycrypto openpyxl Pillow
 $ cd volatility
