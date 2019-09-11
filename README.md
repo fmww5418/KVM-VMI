@@ -36,7 +36,8 @@ $ sudo apt-get install qemu qemu-kvm
 ```bash
 $ wget https://libvirt.org/sources/libvirt-4.0.0.tar.xz
 $ tar Jxvf libvirt-4.0.0.tar.xz 
-$ sudo apt-get install pkg-config libxml2 libxml2-dev libyajl-dev xsltproc libdevmapper-dev libnl-3-dev libnl-route-3-dev libpciaccess-dev python-dev
+$ sudo apt-get install pkg-config libxml2-utils libxml2 libxml2-dev libyajl-dev xsltproc libdevmapper-dev libnl-3-dev libnl-route-3-dev libpciaccess-dev python-dev
+$ cd libvirt-4.0.0
 $ ./autogen.sh --system --enable-compile-warnings=error
 $ make
 $ sudo make install
