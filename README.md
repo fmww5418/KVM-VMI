@@ -56,11 +56,12 @@ $ ldconfig
 ```
 -  LibVMI python
 ```bash
-$ sudo apt-get install python3-pkgconfig python3-cffi python3-future
+$ sudo apt-get install python3-pkgconfig python3-cffi python3-future python-setuptools python-pip
+$ pip install -U setuptools wheel twine
 $ git clone https://github.com/libvmi/python.git python-libvmi
 $ cd python-libvmi
 $ python setup.py build
-$ python setup.py install
+$ sudo python setup.py install
 ```
 
 - Volatility
