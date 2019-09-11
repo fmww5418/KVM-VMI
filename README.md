@@ -90,6 +90,11 @@ $ make menuconfig            # select the packages you wish to compile
 $ make busybox-menuconfig    # select the busybox setting you wish to compile
 $ make -j`nproc`
 ```
+- Python dependencies
+```bash
+$ python -m pip install --upgrade pip
+$ pip install --user pyyaml pexpect
+```
 
 ## Configure
 需調整 config.ini 內的參數
