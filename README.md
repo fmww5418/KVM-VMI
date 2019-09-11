@@ -44,7 +44,7 @@ $ sudo make install
 ```
 - LibVMI
 ```bash
-$ sudo apt-get install cmake flex bison libglib2.0-dev libvirt-dev libjson-c-dev libyajl-dev
+$ sudo apt-get install cmake flex bison libglib2.0-dev libvirt-dev libjson-c-dev libyajl-dev doxygen
 $ git clone https://github.com/libvmi/libvmi
 $ cd libvmi
 $ mkdir build
